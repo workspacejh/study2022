@@ -6,33 +6,48 @@ public class stack03 {
 
 	public static void main(String[] args) {
 
-		String ps = "(()())((()))";
-		/*
-		(())())  							NO
-		(((()())()  						NO
-		(()())((()))  					YES
-		((()()(()))(((())))() 			NO 
-		()()()()(()()())()  				YES
-		(()((())()( 						NO
-		*/
+		//String ps =  "(())())"; 			//NO
+		//String ps ="(((()())()";  			//NO
+		//String ps ="(()())((()))";  			//YES
+		//String ps ="((()()(()))(((())))()"; 		//NO 
+		//String ps ="()()()()(()()())()";  		//YES
+		String ps ="(()((())()("; 			//NO
 		
 		Stack <String> stack = new Stack<String>();
+		Stack <String> stack2 = new Stack<String>();
 		String left = "";
 		String right = "";
 		String result = "YES";
-		
-		for(int i=0; i<ps.length(); i++) {
-			left = ps.substring(i, i+1);
-			right = ps.substring(i+1, i+2);
+		String [] array = ps.split("");
+		for(String word : array) {
+			stack.push(word);
+		}
+		int size = stack.size();
+		for(int i=0; i<size; i++) {
+			if(!stack.empty()) {
+				left = stack.pop();
+			}
+			if(!stack.empty() && stack.size()>0) {
+				right = stack.pop();
+			}
+			//System.out.println("left="+left);
+			//System.out.println("right="+right);
 			if(left.equals(right)) {
-				stack.push(right);
+				stack.push(left);
+				stack2.push(right);
+			}else if(!left.equals(right) && !stack.empty()) {
+				if(!stack2.empty()) {
+					stack.push(stack2.pop());
+				}
+			}
+			//System.out.println("stack="+stack);
+			//System.out.println("stack2="+stack2);
+			if(stack.empty()) {
+				break;
 			}
 		}
-		System.out.println("======"+stack);
-	
-			
 		
-		if(stack.size()>0) {
+		if(stack.size()>0 || stack2.size()>0) {
 			result = "NO";
 		}
 		System.out.println(result);
