@@ -7,7 +7,7 @@ import java.util.Stack;
 public class stack01 {
 
 	public static void main(String[] args) throws IOException{
-		
+		//수정테스트
 		Scanner sc = new Scanner(System.in);
 		Stack<Integer> stack =new Stack<Integer>();
 		
